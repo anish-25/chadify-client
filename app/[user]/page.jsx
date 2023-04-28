@@ -1,5 +1,6 @@
 'use client'
 import useAuth from '@/app/hooks/useAuth'
+import PrivateLayout from '@/components/PrivateLayout'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
@@ -19,10 +20,11 @@ const page = ({params}) => {
   
   if(user?._id){
   return (
-    <div className="min-h-screen flex justify-center items-center">
-      <div className="absolute right-0 top-0 mr-6 mt-6 cursor-pointer" onClick={() => {sessionStorage.clear();window.location.reload()}}>Logout</div>
+    <PrivateLayout>
+    <div className="flex flex-col">
       Welcome {user?.name} 
     </div>
+    </PrivateLayout>
   )
 }}
 export default page

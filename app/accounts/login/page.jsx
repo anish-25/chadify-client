@@ -51,7 +51,7 @@ const page = () => {
             </h4>
           </div>
         </div>
-        <div className="sign-in-form flex justify-left w-[90%] md:w-[60%] lg:w-[40%]">
+        <div className="sign-in-form flex justify-center w-[90%] md:w-[60%] lg:w-[50%]">
           <div className='border-secondary border-opacity-30 flex flex-col justify-start py-4 pb-12 px-2 items-center rounded-md min-w-[60%] max-w-[480px]' style={{ borderWidth: '0.2px' }}>
             <Image className='scale-90 ' src={Logo} alt='logo' />
             <form onSubmit={handleLogin} className='mt-[80px] w-full sm:px-[47px] space-y-10'>
