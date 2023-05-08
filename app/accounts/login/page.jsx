@@ -17,7 +17,7 @@ const page = () => {
       password: "",
     }
   )
-  const { login } = useAuth()
+  const { login,setAuth } = useAuth()
   const handleLogin = (e) => {
     e.preventDefault()
     if (!loading) {
