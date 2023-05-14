@@ -8,6 +8,7 @@ import Button from '@/components/Button';
 import useAuth from '@/app/hooks/useAuth';
 import { handleApiError } from '@/utils/helpers';
 import { useRouter } from 'next/navigation';
+import { ToastContainer } from 'react-toastify';
 const page = () => {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
@@ -37,6 +38,7 @@ const page = () => {
   }
   return (
     <>
+    <ToastContainer enableMultiContainer={false} />
       <div className="min-h-screen flex justify-center items-center">
         <div className="hero-img absolute -left-10 -bottom-[60px] scale-75 hidden lg:block">
           <Image src={HeroImg} alt='giga-chad' />

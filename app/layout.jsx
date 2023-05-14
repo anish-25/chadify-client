@@ -11,7 +11,7 @@ const inter = Inter({
 
 
 export const metadata = {
-  title: `Chad-GPT | Talk to Anish's Assistant`,
+  title: `Chadify`,
   description: 'A Chatbot powered by open-ai which acts as an assistant of a software developer.',
 }
 
@@ -20,7 +20,6 @@ export default function RootLayout({ children }) {
     <html className={inter.className} lang="en">
       <body>
         <AuthProvider>
-        <ToastContainer enableMultiContainer={false} />
           {children}
         </AuthProvider>
       </body>
