@@ -6,11 +6,12 @@ const Button = ({
   width,
   className,
   disabled,
-  loading
+  loading,
+  style
 }) => {
   return (
     <>
-      <button disabled={disabled} onClick={onClick} className={`bg-primary h-[35px] text-white w-full rounded-lg ${!disabled ? 'hover:opacity-70' : ' opacity-70'} transition-all ${className}`}>
+      <button disabled={disabled} style={style} onClick={onClick} className={`bg-primary h-[35px] text-white w-full rounded-lg ${!disabled ? 'hover:opacity-70' : ' opacity-70'} transition-all ${className}`}>
         {!loading ?
           text :
           <div className="w-full flex justify-center items-center" role="status">
