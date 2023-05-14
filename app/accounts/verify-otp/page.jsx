@@ -15,7 +15,8 @@ import OtpInput from '@/components/OTP';
 const page = () => {
     const router = useRouter()
     const { getUserDetails, verifyOtp } = useAuth()
-    let userId = sessionStorage.getItem('userId')
+    
+    let userId = window.sessionStorage.getItem('userId')
     const [userDetails, setUserDetails] = useState({})
     const [otp, setOtp] = useState([]);
     useEffect(() => {
