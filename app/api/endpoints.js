@@ -5,5 +5,6 @@ export const endpoints = {
     register : '/register',
     basicUserDetails : '/user-details/',
     verifyOtp : '/verify-otp',
-    userDetails : '/user/'
+    userDetails : '/user/',
+    createPost : '/posts'
 }

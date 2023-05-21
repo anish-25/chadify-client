@@ -12,6 +12,7 @@ import AddPost from '@/modals/AddPost'
 
 const page = ({ params }) => {
   const [user, setUser] = useState({})
+  const [caption,setCaption] = useState("")
   const { getCompleteUserDetails } = useAuth()
   const router = useRouter()
   const [showAddPostModal, setShowAddPostModal] = useState(false)
@@ -44,7 +45,7 @@ const page = ({ params }) => {
             <AddPostButton onClick={() => setShowAddPostModal(true)} />
           </div>
         </div>
-        <AddPost setShow={setShowAddPostModal} show={showAddPostModal} />
+        <AddPost caption={caption} setCaption={setCaption} setShow={setShowAddPostModal} show={showAddPostModal} />
 
       </PrivateLayout>
     )

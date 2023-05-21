@@ -5,13 +5,27 @@ import Image from 'next/image'
 import React, { useMemo, useRef, useState } from 'react'
 import UploadIcon from 'remixicon-react/Upload2FillIcon'
 import CloseIcon from 'remixicon-react/CloseLineIcon'
+import { FrontFacingChad } from '@/assets/icons'
+import Search from '@/components/Search'
+import useAuth from '@/app/hooks/useAuth'
 
-const AddPost = ({ show, setShow }) => {
+const AddPost = ({ show, setShow,caption,setCaption }) => {
     const imageRef = useRef(null)
     const [image,setImage] = useState(null)
+    const {createPost} = useAuth()
 
     const handleUpload = (e) => {
         setImage(e.target.files[0])
+    }
+    const handleCreatePost = () => {
+        const user = sessionStorage.getItem('userId')
+        const data = {
+            user,
+            mediaType : 'image',
+            media : image,
+            caption, 
+        }
+        console.log(data)
     }
     return (
         <Modal
@@ -42,8 +56,15 @@ const AddPost = ({ show, setShow }) => {
                             </div>
                         }
                     </div>
-                    <div style={{width:'40%',display:'flex',justifyContent:'center',minHeight: '60vh'}}>
-                        asd
+                    <div style={{width:'40%',display:'flex',flexDirection:"column",padding:'20px',justifyContent:'start',minHeight: '60vh'}}>
+                     <div style={{display:'flex',justifyContent:'start',alignItems:'center'}}>
+                     <Image style={{marginRight:'8px'}} src={FrontFacingChad} alt='nav-icon' width={24} height={24}/>
+                     <span style={{fontWeight:'400'}} className='text-secondary'>anish25</span>
+                     </div>
+                    <Search caption={caption} setCaption={setCaption}/>
+                    <div className="flex justify-center items-center w-full mt-12">
+                    <Button disabled={!image?.name} text={'Share'} onClick={handleCreatePost} style={{width:'40%',height:'30px'}}/>
+                    </div>
                     </div>
                     </div>
 
