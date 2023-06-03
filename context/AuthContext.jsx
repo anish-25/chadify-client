@@ -36,6 +36,10 @@ export const AuthProvider = ({ children }) => {
         return axios.post(endpoints.createPost,post,{headers:{'Authorization' : `Bearer ${sessionStorage.getItem('token')}`}})
     }
 
+    const uploadFile = (data) => {
+        return axios.post(endpoints.upload,data,{headers:{'Authorization' : `Bearer ${sessionStorage.getItem('token')}`}})
+    }
+
     return (
         <AuthContext.Provider
             value={{
@@ -46,7 +50,8 @@ export const AuthProvider = ({ children }) => {
                 getUserDetails,
                 verifyOtp,
                 getCompleteUserDetails,
-                createPost
+                createPost,
+                uploadFile
             }}
             >
             {children}

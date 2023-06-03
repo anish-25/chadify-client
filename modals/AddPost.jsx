@@ -8,24 +8,37 @@ import CloseIcon from 'remixicon-react/CloseLineIcon'
 import { FrontFacingChad } from '@/assets/icons'
 import Search from '@/components/Search'
 import useAuth from '@/app/hooks/useAuth'
+import axios from '@/app/api/axios'
 
 const AddPost = ({ show, setShow,caption,setCaption }) => {
     const imageRef = useRef(null)
     const [image,setImage] = useState(null)
-    const {createPost} = useAuth()
-
+    const {createPost,uploadFile} = useAuth()
+    
     const handleUpload = (e) => {
         setImage(e.target.files[0])
     }
-    const handleCreatePost = () => {
+    const handleCreatePost = async() => {
         const user = sessionStorage.getItem('userId')
         const data = {
             user,
             mediaType : 'image',
-            media : image,
             caption, 
         }
-        console.log(data)
+        if(image){
+            const form = new FormData()
+            const fileName = user+ Date.now()+image.name
+            form.append("file",image)
+            form.append("name",fileName)
+            data.media = fileName
+            try{
+            await uploadFile(form).then(async res => {
+                await createPost(data)
+            }).finally(() => setShow(false))
+            }catch(err){
+                console.log(err)
+            }
+        }
     }
     return (
         <Modal

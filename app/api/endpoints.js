@@ -6,5 +6,6 @@ export const endpoints = {
     basicUserDetails : '/user-details/',
     verifyOtp : '/verify-otp',
     userDetails : '/user/',
-    createPost : '/posts'
+    createPost : '/posts',
+    upload : '/upload'
 }
