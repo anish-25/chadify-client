@@ -28,8 +28,8 @@ const AddPost = ({ show, setShow,caption,setCaption }) => {
         if(image){
             const form = new FormData()
             const fileName = user+ Date.now()+image.name
-            form.append("file",image)
             form.append("name",fileName)
+            form.append("file",image)
             data.media = fileName
             try{
             await uploadFile(form).then(async res => {
@@ -64,14 +64,14 @@ const AddPost = ({ show, setShow,caption,setCaption }) => {
                             </>
                             :
                             <div style={{minHeight:'58vh'}} className="relative group w-full h-full flex justify-center items-center transition-all duration-150 cursor-pointer hover:bg-gray-100">
-                                <Image width={200} height={100} className='group-hover:opacity-50' src={URL.createObjectURL(image)}/>
+                                <Image width={200} alt='uploaded-image' height={100} className='group-hover:opacity-50' src={URL.createObjectURL(image)}/>
                                 <CloseIcon onClick={() => setImage(null)} size={35} style={{right:'40px',top:'20px'}} className='absolute hidden group-hover:block opacity-60 hover:!opacity-100 text-white bg-primary rounded-full'/>
                             </div>
                         }
                     </div>
                     <div style={{width:'40%',display:'flex',flexDirection:"column",padding:'20px',justifyContent:'start',minHeight: '60vh'}}>
                      <div style={{display:'flex',justifyContent:'start',alignItems:'center'}}>
-                     <Image style={{marginRight:'8px'}} src={FrontFacingChad} alt='nav-icon' width={24} height={24}/>
+                     <Image style={{marginRight:'8px'}} src={FrontFacingChad} alt='profile-picture' width={24} height={24}/>
                      <span style={{fontWeight:'400'}} className='text-secondary'>anish25</span>
                      </div>
                     <Search caption={caption} setCaption={setCaption}/>

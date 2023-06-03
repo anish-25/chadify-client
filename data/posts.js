@@ -1,7 +1,7 @@
 export const posts =[
     {
       user_name: 'johndavid66',
-      post_url: 'https://picsum.photos/500/500?random=1',
+      post_url: process.env.NEXT_PUBLIC_IMAGE_DIR+"/643b98256e13b24f1f47f1a7/643b98256e13b24f1f47f1a71685784347426send.png",
       location: 'Las Vegas, United States',
       profile_pic: 'https://randomuser.me/api/portraits/men/1.jpg',
       reactions: {
