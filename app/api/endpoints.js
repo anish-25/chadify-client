@@ -7,5 +7,7 @@ export const endpoints = {
     verifyOtp : '/verify-otp',
     userDetails : '/user/',
     createPost : '/posts',
-    upload : '/upload'
+    upload : '/upload',
+    searchUser : '/search/user',
+    timeLinePosts : '/timeline/'
 }

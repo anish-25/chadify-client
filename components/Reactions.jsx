@@ -9,6 +9,7 @@ const Reactions = ({reaction}) => {
   const [counts, setCounts] = useState(reaction)
   const [initialCountState, setInitialCountState] = useState(reaction)
   const [userClickedOn, setUserClickedOn] = useState("")
+  console.log("counts",counts)
   const reactionButtons = [
     {
       name : 'Depressed Wojak',
@@ -52,7 +53,7 @@ const Reactions = ({reaction}) => {
       } else if (b.key === userClickedOn) {
         return 1;
       } else {
-        return counts[b.key] - counts[a.key];
+        // return counts[b.key] - counts[a.key];
       }
     });
   }
@@ -65,7 +66,7 @@ const Reactions = ({reaction}) => {
     <div className={`w-[38px] h-[39px] border border-black rounded-full transition-all duration-500 ease-in-out transform relative ${userClickedOn == reaction.key?'bg-green-400': 'bg-gray-200'} bg-gray-200 hover:bg-green-400 transition-all duration-150 cursor-pointer`} onClick={() => {
       setUserClickedOn(reaction.key); handleClick(reaction.key)}} onDragEnd={() => {setUserClickedOn(reaction.key); handleClick(reaction.key)}}>
       <div className={`absolute -top-3 -right-5 rounded-2xl ${userClickedOn == reaction.key?'bg-green-400':'bg-primary'}  h-5 text-white text-sm px-3 flex justify-center items-center text-center`}>
-        {counts[reaction.key]}
+        {counts[reaction.key].length}
       </div>
       <Image src={reaction.image} alt={reaction.alt} className='w-[37px] h-[38px] rounded-full'/>
     </div>

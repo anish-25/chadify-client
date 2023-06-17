@@ -10,7 +10,7 @@ import Search from '@/components/Search'
 import useAuth from '@/app/hooks/useAuth'
 import axios from '@/app/api/axios'
 
-const AddPost = ({ show, setShow,caption,setCaption }) => {
+const AddPost = ({ show, setShow,caption,setCaption,refreshPosts }) => {
     const imageRef = useRef(null)
     const [image,setImage] = useState(null)
     const {createPost,uploadFile} = useAuth()
@@ -27,14 +27,15 @@ const AddPost = ({ show, setShow,caption,setCaption }) => {
         }
         if(image){
             const form = new FormData()
-            const fileName = user+ Date.now()+image.name
+            // const fileName = user+'.png'
+            const fileName = user+Date.now()+image.name
             form.append("name",fileName)
             form.append("file",image)
             data.media = fileName
             try{
             await uploadFile(form).then(async res => {
                 await createPost(data)
-            }).finally(() => setShow(false))
+            }).finally(() => {setShow(false);refreshPosts(user)})
             }catch(err){
                 console.log(err)
             }

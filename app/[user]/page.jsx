@@ -13,14 +13,21 @@ import AddPost from '@/modals/AddPost'
 const page = ({ params }) => {
   const [user, setUser] = useState({})
   const [caption,setCaption] = useState("")
-  const { getCompleteUserDetails } = useAuth()
+  const { getCompleteUserDetails, getTimeline } = useAuth()
   const router = useRouter()
   const [showAddPostModal, setShowAddPostModal] = useState(false)
+  const [userPosts, setUserPosts] = useState([])
+
+  const refreshPosts = (userId) => {
+    getCompleteUserDetails(userId).then(res => setUser(res.data))
+    getTimeline(userId).then(res => setUserPosts(res.data))
+  }
+
   useEffect(() => {
     let userId = sessionStorage.getItem('userId')
     axios.get('/refresh-token')
     if (params.user && userId) {
-      getCompleteUserDetails(userId).then(res => setUser(res.data))
+      refreshPosts(userId)
     }
     else {
       router.push('/accounts/login')
@@ -36,7 +43,7 @@ const page = ({ params }) => {
           </div>
           <div className="w-full">
             {
-              posts.map(post => (
+              userPosts.map(post => (
                 <Post post={post} />
               ))
             }
@@ -45,7 +52,7 @@ const page = ({ params }) => {
             <AddPostButton onClick={() => setShowAddPostModal(true)} />
           </div>
         </div>
-        <AddPost caption={caption} setCaption={setCaption} setShow={setShowAddPostModal} show={showAddPostModal} />
+        <AddPost refreshPosts={refreshPosts} caption={caption} setCaption={setCaption} setShow={setShowAddPostModal} show={showAddPostModal} />
 
       </PrivateLayout>
     )
