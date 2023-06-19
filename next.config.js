@@ -23,6 +23,12 @@ const nextConfig = {
         port: '5000',
         pathname: '/images/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'chadify-server.vercel.app',
+        port: '',
+        pathname: '/images/**',
+      },
     ],
   }
 }
