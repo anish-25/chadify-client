@@ -48,6 +48,10 @@ export const AuthProvider = ({ children }) => {
         return axios.get(endpoints.timeLinePosts+user,{headers:{'Authorization' : `Bearer ${sessionStorage.getItem('token')}`}})
     }
 
+    const getUserPosts = (user) => {
+        return axios.get(endpoints.userPosts+user,{headers:{'Authorization' : `Bearer ${sessionStorage.getItem('token')}`}})
+    }
+
     return (
         <AuthContext.Provider
             value={{
@@ -61,7 +65,8 @@ export const AuthProvider = ({ children }) => {
                 createPost,
                 uploadFile,
                 searchUser,
-                getTimeline
+                getTimeline,
+                getUserPosts
             }}
             >
             {children}

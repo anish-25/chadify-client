@@ -9,5 +9,6 @@ export const endpoints = {
     createPost : '/posts',
     upload : '/upload',
     searchUser : '/search/user',
-    timeLinePosts : '/timeline/'
+    timeLinePosts : '/timeline/',
+    userPosts : '/user-posts/',
 }

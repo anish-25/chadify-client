@@ -1,42 +1,45 @@
 'use client'
 import useAuth from '@/app/hooks/useAuth'
-import  FrontFacingChad from '@/assets/FrontFacingChad.png'
 import PrivateLayout from '@/components/PrivateLayout'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import { notFound, useRouter } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
+import ProfileHead from '../components/ProfileHead'
+import PostsGrid from '../components/PostsGrid'
 
 const page = ({params}) => {
+  const [user, setUser] = useState({})
+  const [posts, setPosts] = useState([])
+  const router = useRouter()
+  const {getCompleteUserDetails,getUserPosts} = useAuth()
+  useEffect(() => {
+    getCompleteUserDetails(params.user).then(res => {
+      console.log(res.data)
+      if(res.data.username){
+        setUser(res.data)
+        getUserPosts(res.data._id).then(res => {
+          setPosts(res.data)
+        })
+      }
+      else{
+       return notFound()
+      }
+    })
+  }, [])
+  
      
   return (
     <PrivateLayout hideChatWindow={true}>
-    <div className="flex flex-col w-full justify-center items-center h-screen min-h-screen p-6">
-      <div className="flex justify-between h-[20%] w-[80%] items-center pt-6 space-x-4">
-        <div className="flex flex-col justify-center items-center">
-        <Image className='rounded-full border' src={FrontFacingChad}></Image>
-        <div className="flex flex-col space-y-2 justify-center items-center">
-        <h3 className='text-3xl font-semibold mt-2'>Anish</h3>
-        <p className='text-sm text-secondary opacity-60 font-semibold'>anish25</p>
-        </div>
-        </div>
-        <div className="flex justify-center space-x-8 w-full items-center">
-        <div className="flex flex-col space-y-2 justify-center items-center">
-        <h3 className='text-3xl font-semibold'>37</h3>
-        <p className='text-sm text-secondary opacity-60 font-semibold'>FOLLOWERS</p>
-        </div>
-        <div className="flex flex-col space-y-2 justify-center items-center">
-        <h3 className='text-3xl font-semibold'>89</h3>
-        <p className='text-sm text-secondary opacity-60 font-semibold'>FOLLOWING</p>
-        </div>
-        <div className="flex flex-col space-y-2 justify-center items-center">
-        <h3 className='text-3xl font-semibold'>3</h3>
-        <p className='text-sm text-secondary opacity-60 font-semibold'>POSTS</p>
-        </div>
-        </div>
-      </div>
-      <div style={{height:'80%'}} className="min-h-[80%]"></div>
-        as
-    </div>
+      {
+        user?._id ?
+        <div className="flex flex-col w-full justify-start items-center max-h-screen min-h-screen p-6">
+        <ProfileHead/>
+          <div style={{height:'80%'}} className="min-h-[80%] py-6 w-[80%] flex-1 flex-grow flex justify-center items-stretch">
+            <PostsGrid posts={posts}/>
+          </div>
+            
+        </div> : <>Not found</>
+      }
+  
     </PrivateLayout>
   )
 }
