@@ -43,7 +43,7 @@ const page = () => {
             }
         }).catch(err => handleApiError(err)) 
     }
-    if (userId) {
+    if (userDetails?.username) {
         return (
             <>
                 <div className="min-h-screen flex justify-center items-center">
