@@ -3,6 +3,10 @@ import Logo from '@/assets/Logo.png'
 import { FrontFacingChad, Home, NotificationBell, SearchLens, SettingsGear } from '@/assets/icons'
 import Image from 'next/image'
 import { redirect, useRouter } from 'next/navigation'
+import Logout from 'remixicon-react/LogoutBoxLineIcon'
+import Link from 'next/link'
+import Button from './Button'
+import { handleLogout } from '@/utils/helpers'
 
 const Sidebar = () => {
  const links = [
@@ -47,6 +51,12 @@ const Sidebar = () => {
                 </div>
             ))
         }
+    </div>
+    <div className="flex justify-center w-full items-end mb-14">
+        <button onClick={() => {handleLogout()}} className='flex justify-center items-end w-[40%] space-x-3'>
+        <Logout color='red'/>
+        <span className='text-red-500 font-medium'>Logout</span>
+        </button>
     </div>
     </div>
   )
