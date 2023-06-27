@@ -9,6 +9,7 @@ import axios from '../api/axios'
 import { posts } from '@/data/posts'
 import AddPostButton from '@/components/AddPostButton'
 import AddPost from '@/modals/AddPost'
+import { getFireBaseFile } from '@/utils/helpers'
 
 const page = ({ params }) => {
   const [user, setUser] = useState({})
@@ -17,6 +18,7 @@ const page = ({ params }) => {
   const router = useRouter()
   const [showAddPostModal, setShowAddPostModal] = useState(false)
   const [userPosts, setUserPosts] = useState([])
+  const [imageUrls, setImageUrls] = useState([])
 
   const refreshPosts = (userId) => {
     getCompleteUserDetails(userId).then(res => setUser(res.data))
@@ -34,6 +36,26 @@ const page = ({ params }) => {
     }
   }, [])
 
+  useEffect(() => {
+    async function fetchImageUrls() {
+      const urls = await Promise.all(
+        userPosts.map(async (post) => {
+          try {
+            const url = await getFireBaseFile(post.user+'/'+post.media)
+            return url;
+          } catch (error) {
+            console.error(`Error retrieving image URL for post with file path ${post.filePath}:`, error);
+            return null;
+          }
+        })
+      );
+
+      setImageUrls(urls);
+    }
+
+    fetchImageUrls();
+  }, [userPosts]);
+
   if (user?._id) {
     return (
       <PrivateLayout>
@@ -43,8 +65,8 @@ const page = ({ params }) => {
           </div>
           <div className="w-full">
             {
-              userPosts.map(post => (
-                <Post post={post} />
+              userPosts.map((post,index) => (
+                <Post post={post} imageUrl={imageUrls[index]} />
               ))
             }
           </div>

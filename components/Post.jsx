@@ -8,8 +8,9 @@ import Sivaji from '@/assets/Sivaji.png'
 import Reactions from './Reactions'
 import { Dropdown } from 'flowbite-react'
 import { IMAGE_HOST } from '@/app/config'
+import { getFireBaseFile } from '@/utils/helpers'
 
-const Post = ({ post }) => {
+const Post = ({ post,imageUrl }) => {
   const [showMore, setShowMore] = useState(false)
   const caption = post.caption
   return (
@@ -43,7 +44,7 @@ const Post = ({ post }) => {
         </Dropdown>
       </div>
       <div className="mt-4 relative">
-        <Image className='w-full max-h-[450px]' style={{ objectFit: 'contain' }} width={300} height={180} src={IMAGE_HOST+'/'+post.user+'/'+post.media} alt='post-image' />
+        <Image className='w-full max-h-[450px]' style={{ objectFit: 'contain' }} width={300} height={180} src={imageUrl} alt='post-image' />
       </div>
       <div className="px-3 mt-2 cursor-pointer min-h-[30px] hover:text-secondary" onClick={() => setShowMore(prev => !prev)}>
         {caption.length < 180 ? caption :
