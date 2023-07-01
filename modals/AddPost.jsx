@@ -7,13 +7,12 @@ import UploadIcon from 'remixicon-react/Upload2FillIcon'
 import CloseIcon from 'remixicon-react/CloseLineIcon'
 import { FrontFacingChad } from '@/assets/icons'
 import Search from '@/components/Search'
-import useAuth from '@/app/hooks/useAuth'
-import axios from '@/app/api/axios'
+import useApi from '@/app/hooks/useApi'
 
 const AddPost = ({ show, setShow,caption,setCaption,refreshPosts }) => {
     const imageRef = useRef(null)
     const [image,setImage] = useState(null)
-    const {createPost,uploadFile} = useAuth()
+    const {createPost,uploadFile} = useApi()
     
     const handleUpload = (e) => {
         setImage(e.target.files[0])

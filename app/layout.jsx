@@ -1,8 +1,11 @@
 import { AuthProvider } from '@/context/AuthContext'
+import { ApiProvider } from '@/context/ApiContext'
 import './globals.css'
 import { Inter } from 'next/font/google';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PrivateLayout from '@/components/PrivateLayout';
+import { useRouter } from 'next/navigation';
 const inter = Inter({
   weight: ['400','500','600','700'],
   subsets: ['latin'],
@@ -20,7 +23,11 @@ export default function RootLayout({ children }) {
     <html className={inter.className} lang="en">
       <body>
         <AuthProvider>
+          <ApiProvider>
+          <PrivateLayout>
           {children}
+          </PrivateLayout>
+          </ApiProvider>
         </AuthProvider>
       </body>
     </html>

@@ -1,8 +1,9 @@
+'use client'
 import { AuthContext } from "@/context/AuthContext"
-import React from "react"
+import React, { useContext } from "react"
 
 const useAuth = () => {
-    return React.useContext(AuthContext)
+    return useContext(AuthContext)
 }
 
 export default useAuth

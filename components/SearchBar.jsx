@@ -2,12 +2,12 @@ import React, { useMemo, useState } from 'react'
 import SearchLine from 'remixicon-react/SearchLineIcon'
 import SearchBarSkeleton from './skeletons/SearchBar.skeleton'
 import useDebounce from '@/app/hooks/useDebouncer'
-import useAuth from '@/app/hooks/useAuth'
+import useApi from '@/app/hooks/useApi'
 const SearchBar = () => {
   const [searchKeyWord, setSearchKeyWord] = useState("")
   const [userResults, setUserResults] = useState([])
   const debouncedKey = useDebounce(searchKeyWord,500)
-  const {searchUser} = useAuth()
+  const {searchUser} = useApi()
   useMemo(() => {
     if(debouncedKey.length){
       searchUser(debouncedKey).then(res => setUserResults(res.data.data))
