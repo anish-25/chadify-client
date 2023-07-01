@@ -11,11 +11,13 @@ const PrivateLayout = ({children}) => {
   const {hideChatWindow, setHideChatWindow,auth} = useAuth()
   const refresh = useRefreshToken()
   const router = useRouter()
-  useMemo(() => {
-    if(!auth?.accessToken?.token && sessionStorage.getItem('rT')){
+  let refreshToken = undefined
+  useEffect(() => {
+    refreshToken = sessionStorage.getItem('rT')
+    if(!auth?.accessToken?.token && refreshToken){
       refresh()
     }
-    else if(!sessionStorage.getItem('rT')){
+    else if(!refreshToken){
       router.push('/accounts/login')
     }
   }, [auth])
