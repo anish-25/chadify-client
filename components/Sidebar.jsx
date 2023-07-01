@@ -10,6 +10,7 @@ import { getFireBaseFile, handleLogout } from '@/utils/helpers'
 import useAuth from '@/app/hooks/useAuth'
 
 const Sidebar = () => {
+    const {auth} = useAuth()
     const links = [
         {
             name: 'Home',
@@ -34,7 +35,7 @@ const Sidebar = () => {
         {
             name: 'Profile',
             icon: FrontFacingChad,
-            path: '/profiles/anish'
+            path: '/profiles/'+auth?.username
         },
     ]
     const router = useRouter()

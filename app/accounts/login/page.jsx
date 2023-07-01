@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import HeroImg from '@/assets/HeroImage.png'
 import Logo from '@/assets/Logo.png'
 import Input from '@/components/Input';
@@ -18,14 +18,16 @@ const page = () => {
       password: "",
     }
   )
-  const { login,setAuth } = useAuth()
+  const { login,auth,setAuth } = useAuth()
   const handleLogin = (e) => {
     e.preventDefault()
     if (!loading) {
       setLoading(true)
       login(userInputs).then(res => {
-        sessionStorage.setItem('token', res.data.accessToken?.token)
+        // sessionStorage.setItem('token', res.data.accessToken?.token)
+        sessionStorage.setItem('rT', res.data.refreshToken?.token)
         sessionStorage.setItem('userId', res.data.id)
+        setAuth(res.data)
         router.push('/' + res.data.username)
       }).catch(err => { handleApiError(err); setLoading(false) })
     }
@@ -36,7 +38,16 @@ const page = () => {
   const disableButton = () => {
     return Object.values(userInputs).includes("") || userInputs.password.length < 5
   }
-  return (
+
+  useEffect(() => {
+  console.log("login",auth)
+  if(auth?.accessToken){
+    router.push('/'+auth?.username)
+  }
+  }, [])
+  
+  if(!auth?.accessToken && !sessionStorage.getItem('rT')){
+    return (
     <>
     <ToastContainer enableMultiContainer={false} />
       <div className="min-h-screen flex justify-center items-center">
@@ -76,7 +87,10 @@ const page = () => {
         </div>
       </div>
     </>
-  )
+  )}
+  else{
+    return <></>
+  }
 }
 
 export default page

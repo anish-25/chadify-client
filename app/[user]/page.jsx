@@ -10,7 +10,7 @@ import { getFireBaseFile } from '@/utils/helpers'
 import useAxiosPrivate from '../hooks/useAxiosPrivate'
 import { endpoints } from '../api/endpoints'
 import useApi from '../hooks/useApi'
-
+import firebase from "@/app/firebase"
 const page = ({ params }) => {
   const [user, setUser] = useState({})
   const [caption,setCaption] = useState("")
@@ -27,7 +27,6 @@ const page = ({ params }) => {
 
   useEffect(() => {
     let userId = sessionStorage.getItem('userId')
-    axios.get('/refresh-token')
     if (params.user && userId) {
       refreshPosts(userId)
     }
@@ -37,22 +36,19 @@ const page = ({ params }) => {
   }, [])
 
   useEffect(() => {
+    // if(userPosts.length){
     async function fetchImageUrls() {
-      const urls = await Promise.all(
-        userPosts.map(async (post) => {
-          try {
-            const url = await getFireBaseFile(post.user+'/'+post.media)
-            return url;
-          } catch (error) {
-            console.error(`Error retrieving image URL for post with file path ${post.filePath}:`, error);
-            return null;
-          }
-        })
-      );
-      axiosPrivate.get(endpoints.refreshToken)
-      setImageUrls(urls);
+      const storageRefs = userPosts.map((post) => firebase.storage().ref(post.user+'/'+post.media));
+      try {
+        const urls = await Promise.all(storageRefs.map((storageRef) => storageRef.getDownloadURL()));
+        setImageUrls(urls);
+      } catch (error) {
+        console.error('Error retrieving image URLs:', error);
+        setImageUrls([]);
+      }
     }
     fetchImageUrls();
+  // }
   }, [userPosts]);
 
   if (user?._id) {

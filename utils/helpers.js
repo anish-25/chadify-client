@@ -1,4 +1,5 @@
 import firebase from "@/app/firebase"
+import useAuth from "@/app/hooks/useAuth"
 import { useRouter } from "next/navigation"
 import { toast } from "react-toastify"
 
@@ -13,8 +14,10 @@ export const handleApiError = (err) => {
 
 export const handleLogout = () => {
     const router = useRouter()
+    const {setAuth} = useAuth()
     localStorage.clear()
     sessionStorage.clear()
+    setAuth({})
     router.push('/accounts/login')
 }
 

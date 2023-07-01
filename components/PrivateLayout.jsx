@@ -1,21 +1,31 @@
 'use client'
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import ChatWindow from './ChatWindow'
 import Sidebar from './Sidebar'
 import useAuth from '@/app/hooks/useAuth'
+import useRefreshToken from '@/app/hooks/useRefreshToken'
+import { useRouter } from 'next/navigation'
 
 const PrivateLayout = ({children}) => {
-  const token = sessionStorage.getItem("token")
   const routesWithoutChatWindow = ['/profiles']
-  const {hideChatWindow, setHideChatWindow} = useAuth()
+  const {hideChatWindow, setHideChatWindow,auth} = useAuth()
+  const refresh = useRefreshToken()
+  const router = useRouter()
+  useMemo(() => {
+    if(!auth?.accessToken?.token && sessionStorage.getItem('rT')){
+      refresh()
+    }
+    else if(!sessionStorage.getItem('rT')){
+      router.push('/accounts/login')
+    }
+  }, [auth])
+  
    useMemo(() => {
     setHideChatWindow(
       routesWithoutChatWindow.filter(val => window.location.pathname.includes(val)).length>0
     )
   },[window.location.pathname]) 
-  // routesWithoutChatWindow.includes(window.location.pathname)
-  console.log("hideChatwindow",hideChatWindow,window.location.pathname)
- if(token){
+ if(auth?.accessToken?.token){
    return (
      <>
      <div className="flex min-h-screen items-center justify-start">
@@ -35,10 +45,16 @@ const PrivateLayout = ({children}) => {
      </>
    )
  }
- else{
+ else if(window.location.pathname.includes('/accounts')){
+  console.log("loginaccounts")
   return <>
   {children}
   </>
+ }
+ else{
+  console.log("login!accounts")
+  router.push('/accounts/login')
+  return <></>
  }
 }
 
