@@ -44,7 +44,7 @@ const PrivateLayout = ({children}) => {
      </>
    )
  }
- else if(pathname.includes('/accounts')){
+ else if(window.location.pathname.includes('/accounts')){
   return <>
   {children}
   </>
