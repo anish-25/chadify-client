@@ -9,22 +9,22 @@ import { usePathname, useRouter } from 'next/navigation'
 
 const PrivateLayout = ({children}) => {
   const routesWithoutChatWindow = ['/profiles']
-  const {hideChatWindow, setHideChatWindow,auth} = useAuth()
+  const {hideChatWindow, setHideChatWindow,auth,refreshToken, setRefreshToken} = useAuth()
   const refresh = useRefreshToken()
   const router = useRouter()
   const pathname = usePathname()
-  let refreshToken = undefined
   useEffect(() => {
-    refreshToken = sessionStorage.getItem('rT')
-    if(!auth?.accessToken?.token && refreshToken){
+    let token = sessionStorage.getItem('rT')
+    if(!auth?.accessToken?.token && token){
+      setRefreshToken(token)
       refresh()
     }
     else if(!refreshToken){
       router.push('/accounts/login')
     }
-  }, [auth,pathname])
+  }, [auth])
 
- if(auth?.accessToken?.token){
+ if(auth?.accessToken?.token && refreshToken){
    return (
      <>
      <div className="flex min-h-screen items-center justify-start">
@@ -45,13 +45,11 @@ const PrivateLayout = ({children}) => {
    )
  }
  else if(pathname.includes('/accounts')){
-  console.log("loginaccounts")
   return <>
   {children}
   </>
  }
  else{
-  console.log("login!accounts")
   router.push('/accounts/login')
   return <></>
  }

@@ -6,6 +6,7 @@ import axios from '@/app/api/axios'
 import { endpoints } from "@/app/api/endpoints"
 export const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState({})
+    const [refreshToken, setRefreshToken] = useState(undefined)
     const [hideChatWindow, setHideChatWindow] = useState({})
     const login = (cred) => {
         return axios.post(endpoints.login, { email: cred?.username, password: cred.password })
@@ -33,6 +34,7 @@ export const AuthProvider = ({ children }) => {
             value={{
                 auth, setAuth,
                 hideChatWindow, setHideChatWindow,
+                refreshToken, setRefreshToken,
                 login,
                 register,
                 checkUsername,
