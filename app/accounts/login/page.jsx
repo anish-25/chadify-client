@@ -45,7 +45,7 @@ const page = () => {
     router.push('/'+auth?.username)
   }
   }, [])
-  
+  if(typeof window !== undefined){
   if(!auth?.accessToken && !sessionStorage.getItem('rT')){
     return (
     <>
@@ -91,6 +91,6 @@ const page = () => {
   else{
     return <></>
   }
-}
+}}
 
 export default page
