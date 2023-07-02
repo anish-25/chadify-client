@@ -12,6 +12,7 @@ import { ToastContainer } from 'react-toastify';
 const page = () => {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const [refreshToken, setRefreshToken] = useState({set:false,value:undefined})
   const [userInputs, setUserInputs] = useState(
     {
       username: "",
@@ -41,12 +42,13 @@ const page = () => {
 
   useEffect(() => {
   console.log("login",auth)
+  setRefreshToken({set:true,value:sessionStorage.getItem('rT')})
   if(auth?.accessToken){
     router.push('/'+auth?.username)
   }
   }, [])
   if(typeof window !== undefined){
-  if(!auth?.accessToken && !sessionStorage.getItem('rT')){
+  if(!auth?.accessToken && !refreshToken.value && refreshToken.set){
     return (
     <>
     <ToastContainer enableMultiContainer={false} />
