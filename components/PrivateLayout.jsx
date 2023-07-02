@@ -4,13 +4,15 @@ import ChatWindow from './ChatWindow'
 import Sidebar from './Sidebar'
 import useAuth from '@/app/hooks/useAuth'
 import useRefreshToken from '@/app/hooks/useRefreshToken'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+
 
 const PrivateLayout = ({children}) => {
   const routesWithoutChatWindow = ['/profiles']
   const {hideChatWindow, setHideChatWindow,auth} = useAuth()
   const refresh = useRefreshToken()
   const router = useRouter()
+  const pathname = usePathname()
   let refreshToken = undefined
   useEffect(() => {
     refreshToken = sessionStorage.getItem('rT')
@@ -20,13 +22,8 @@ const PrivateLayout = ({children}) => {
     else if(!refreshToken){
       router.push('/accounts/login')
     }
-  }, [auth])
-  
-   useMemo(() => {
-    setHideChatWindow(
-      routesWithoutChatWindow.filter(val => window.location.pathname.includes(val)).length>0
-    )
-  },[window.location.pathname]) 
+  }, [auth,pathname])
+
  if(auth?.accessToken?.token){
    return (
      <>
@@ -47,7 +44,7 @@ const PrivateLayout = ({children}) => {
      </>
    )
  }
- else if(window.location.pathname.includes('/accounts')){
+ else if(pathname.includes('/accounts')){
   console.log("loginaccounts")
   return <>
   {children}
