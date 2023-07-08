@@ -15,7 +15,7 @@ const Sidebar = () => {
         {
             name: 'Home',
             icon: Home,
-            path: '/',
+            path: '/'+auth?.username,
         },
         {
             name: 'Search',
@@ -43,12 +43,12 @@ const Sidebar = () => {
     return (
         <div className='flex flex-col w-full h-screen p-2 justify-start items-start'>
             <div className="flex justify-start items-start h-[10%]">
-                <Image src={Logo} className='scale-75 cursor-pointer' onClick={() => router.push('/')} />
+                <Image src={Logo} className='scale-75 cursor-pointer' onClick={() => router.push('/'+auth?.username)} />
             </div>
             <div className="flex flex-col w-full justify-center mb-32 items-center h-[90%] pl-8 space-y-[40px] text-secondary font-semibold">
                 {
                     links.map(link => (
-                        <div onClick={() => { if (link.name === "Profile") { setHideChatWindow(false) } else { setHideChatWindow(true) }; router.push(link.path) }} className="flex w-full justify-start items-center space-x-3 hover:font-bold cursor-pointer transition-all duration-150">
+                        <div onClick={() => { if (link.name === "Profile") { setHideChatWindow(true) } else { setHideChatWindow(false) }; router.push(link.path) }} className="flex w-full justify-start items-center space-x-3 hover:font-bold cursor-pointer transition-all duration-150">
                             <Image src={link.icon} alt='nav-icon' width={22} height={20} />
                             <div className="">{link.name}</div>
                         </div>
@@ -57,7 +57,6 @@ const Sidebar = () => {
             </div>
             <div className="flex justify-center w-full items-end mb-14">
                 <button onClick={() => {
-                    // getFireBaseFile()
                     handleLogout()
                 }} className='flex justify-center items-end w-[40%] space-x-3'>
                     <Logout color='red' />

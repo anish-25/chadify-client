@@ -10,10 +10,9 @@ import firebase from "@/app/firebase"
 import useAuth from '@/app/hooks/useAuth'
 import useAxiosPrivate from '@/app/hooks/useAxiosPrivate'
 const page = ({ params }) => {
-  const [user, setUser] = useState({})
   const [caption, setCaption] = useState("")
   const { auth } = useAuth()
-  const { getCompleteUserDetails, getTimeline } = useApi()
+  const { getTimeline } = useApi()
   const router = useRouter()
   const [showAddPostModal, setShowAddPostModal] = useState(false)
   const [userPosts, setUserPosts] = useState([])
@@ -21,7 +20,6 @@ const page = ({ params }) => {
   const axios = useAxiosPrivate()
   const refreshPosts = () => {
     let userId = auth?.id
-    getCompleteUserDetails(userId).then(res => setUser(res.data))
     getTimeline(userId).then(res => setUserPosts(res.data))
   }
 
@@ -38,25 +36,9 @@ const page = ({ params }) => {
     }
   }, [])
 
-  useEffect(() => {
-    if(userPosts.length){
-    async function fetchImageUrls() {
-      const storageRefs = userPosts.map((post) => firebase.storage().ref(post.user + '/' + post.media));
-      try {
-        const urls = await Promise.all(storageRefs.map((storageRef) => storageRef.getDownloadURL()));
-        setImageUrls(urls);
-      } catch (error) {
-        console.error('Error retrieving image URLs:', error);
-        setImageUrls([]);
-      }
-    }
-    fetchImageUrls();
-    }
-  }, [userPosts]);
 
-  if (user?._id) {
+  if (auth?.id) {
     return (
-      // <PrivateLayout>
       <>
         <div className="flex relative flex-col h-screen justify-start w-full px-4">
           <div className="w-full h-[15%] sticky z-30 top-0 bg-[#FCFBFF]">
@@ -75,7 +57,6 @@ const page = ({ params }) => {
         </div>
         <AddPost refreshPosts={refreshPosts} caption={caption} setCaption={setCaption} setShow={setShowAddPostModal} show={showAddPostModal} />
       </>
-      // </PrivateLayout>
     )
   }
   else {

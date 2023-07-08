@@ -44,7 +44,7 @@ const Post = ({ post,imageUrl }) => {
         </Dropdown>
       </div>
       <div className="mt-4 relative">
-        <Image className='w-full max-h-[450px]' style={{ objectFit: 'contain' }} width={300} height={180} src={imageUrl} alt='post-image' />
+        <Image className='w-full max-h-[450px]' style={{ objectFit: 'contain' }} width={300} height={180} src={post.media} alt='post-image' />
       </div>
       <div className="px-3 mt-2 cursor-pointer min-h-[30px] hover:text-secondary" onClick={() => setShowMore(prev => !prev)}>
         {caption.length < 180 ? caption :

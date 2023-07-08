@@ -8,12 +8,8 @@ export default function Home() {
   const router = useRouter()
   const { auth, getUserDetails } = useAuth()
   useEffect(() => {
-    const user = sessionStorage.getItem('userId')
-    const token = sessionStorage.getItem('token')
-    if (user && token) {
-      getUserDetails(user).then(res => {
-        router.push(`/${res.data?.username}`)
-      }).catch(err => router.push('/accounts/login'))
+    if (auth?.id) {
+      router.push('/'+auth?.username)
     } else {
       router.push('/accounts/login')
     }
