@@ -8,7 +8,6 @@ export const handleApiError = (err) => {
     toast.error(message, {
         position: 'top-center',
         autoClose: 5000,
-        className: "bg-primary"
     })
 }
 

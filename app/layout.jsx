@@ -1,7 +1,6 @@
 import { AuthProvider } from '@/context/AuthContext'
 import './globals.css'
 import { Inter } from 'next/font/google';
-import 'react-toastify/dist/ReactToastify.css';
 const inter = Inter({
   weight: ['400','500','600','700'],
   subsets: ['latin'],

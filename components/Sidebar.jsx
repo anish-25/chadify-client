@@ -8,6 +8,7 @@ import Link from 'next/link'
 import Button from './Button'
 import { getFireBaseFile, handleLogout } from '@/utils/helpers'
 import useAuth from '@/app/hooks/useAuth'
+import { useLogout } from '@/app/hooks/useLogout'
 
 const Sidebar = () => {
     const {auth} = useAuth()
@@ -40,6 +41,7 @@ const Sidebar = () => {
     ]
     const router = useRouter()
     const { hideChatWindow, setHideChatWindow } = useAuth()
+    const logout = useLogout()
     return (
         <div className='flex flex-col w-full h-screen p-2 justify-start items-start'>
             <div className="flex justify-start items-start h-[10%]">
@@ -57,7 +59,7 @@ const Sidebar = () => {
             </div>
             <div className="flex justify-center w-full items-end mb-14">
                 <button onClick={() => {
-                    handleLogout()
+                    logout()
                 }} className='flex justify-center items-end w-[40%] space-x-3'>
                     <Logout color='red' />
                     <span className='text-red-500 font-medium'>Logout</span>

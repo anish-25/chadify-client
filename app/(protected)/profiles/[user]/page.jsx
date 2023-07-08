@@ -32,7 +32,7 @@ const page = ({params}) => {
     {
         user?._id ?
         <div className="flex flex-col w-full justify-start items-center max-h-screen min-h-screen p-6">
-        <ProfileHead/>
+        <ProfileHead user={user}/>
           <div style={{height:'80%'}} className="min-h-[80%] py-6 w-[80%] flex-1 flex-grow flex justify-center items-stretch">
             <PostsGrid posts={posts}/>
           </div>

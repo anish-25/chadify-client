@@ -4,12 +4,14 @@ import useAuth from '../hooks/useAuth';
 import { useEffect, useMemo } from 'react';
 import useRefreshToken from '../hooks/useRefreshToken';
 import { ApiProvider } from '@/context/ApiContext';
+import { useRouter } from 'next/navigation';
 
 export default function ProtectedLayout({
   children,
 }) {
   const { auth, refreshToken, setRefreshToken } = useAuth()
   const refresh = useRefreshToken()
+  const router = useRouter()
   useEffect(() => {
     let token = sessionStorage.getItem('rT')
     if (!auth?.accessToken?.token && token) {

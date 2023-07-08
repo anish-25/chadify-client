@@ -14,7 +14,7 @@ import Loader from '@/components/Loader';
 import OtpInput from '@/components/OTP';
 const page = () => {
     const router = useRouter()
-    const { getUserDetails, verifyOtp } = useAuth()
+    const { getUserDetails, verifyOtp,setAuth } = useAuth()
 
     let userId = undefined
     const [userDetails, setUserDetails] = useState({})
@@ -40,6 +40,9 @@ const page = () => {
         verifyOtp(userDetails?.email, Number(otpNumber)).then(res => {
             if(res.data.accessToken){
             sessionStorage.setItem('token',res.data.accessToken?.token)
+            sessionStorage.setItem('rT',res.data.refreshToken?.token)
+            setAuth(res.data)
+            router.push('/'+res.data?.username)
             }
         }).catch(err => handleApiError(err)) 
     }
