@@ -8,23 +8,7 @@ import { usePathname, useRouter } from 'next/navigation'
 
 
 const PrivateLayout = ({children}) => {
-  const routesWithoutChatWindow = ['/profiles']
   const {hideChatWindow, setHideChatWindow,auth,refreshToken, setRefreshToken} = useAuth()
-  const refresh = useRefreshToken()
-  const router = useRouter()
-  const pathname = usePathname()
-  useEffect(() => {
-    let token = sessionStorage.getItem('rT')
-    if(!auth?.accessToken?.token && token){
-      setRefreshToken(token)
-      refresh()
-    }
-    else if(!refreshToken){
-      router.push('/accounts/login')
-    }
-  }, [auth])
-
- if(auth?.accessToken?.token && refreshToken){
    return (
      <>
      <div className="flex min-h-screen items-center justify-start">
@@ -43,16 +27,6 @@ const PrivateLayout = ({children}) => {
      </div>
      </>
    )
- }
- else if(window.location.pathname.includes('/accounts')){
-  return <>
-  {children}
-  </>
- }
- else{
-  router.push('/accounts/login')
-  return <></>
- }
 }
 
 export default PrivateLayout

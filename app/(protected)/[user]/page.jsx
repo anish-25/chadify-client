@@ -3,31 +3,34 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import Post from '@/components/Post'
 import SearchBar from '@/components/SearchBar'
-import axios from '../api/axios'
 import AddPostButton from '@/components/AddPostButton'
 import AddPost from '@/modals/AddPost'
-import { getFireBaseFile } from '@/utils/helpers'
-import useAxiosPrivate from '../hooks/useAxiosPrivate'
-import { endpoints } from '../api/endpoints'
-import useApi from '../hooks/useApi'
+import useApi from '@/app/hooks/useApi'
 import firebase from "@/app/firebase"
+import useAuth from '@/app/hooks/useAuth'
+import useAxiosPrivate from '@/app/hooks/useAxiosPrivate'
 const page = ({ params }) => {
   const [user, setUser] = useState({})
-  const [caption,setCaption] = useState("")
+  const [caption, setCaption] = useState("")
+  const { auth } = useAuth()
   const { getCompleteUserDetails, getTimeline } = useApi()
   const router = useRouter()
   const [showAddPostModal, setShowAddPostModal] = useState(false)
   const [userPosts, setUserPosts] = useState([])
   const [imageUrls, setImageUrls] = useState([])
-  const axiosPrivate = useAxiosPrivate()
-  const refreshPosts = (userId) => {
+  const axios = useAxiosPrivate()
+  const refreshPosts = () => {
+    let userId = auth?.id
     getCompleteUserDetails(userId).then(res => setUser(res.data))
     getTimeline(userId).then(res => setUserPosts(res.data))
   }
 
   useEffect(() => {
-    let userId = sessionStorage.getItem('userId')
-    if (params.user && userId) {
+    let userId = auth?.id
+    if (params.user !== auth?.username) {
+      router.push('/profiles/' + params.user)
+    }
+    else if (params.user && userId) {
       refreshPosts(userId)
     }
     else {
@@ -36,9 +39,9 @@ const page = ({ params }) => {
   }, [])
 
   useEffect(() => {
-    // if(userPosts.length){
+    if(userPosts.length){
     async function fetchImageUrls() {
-      const storageRefs = userPosts.map((post) => firebase.storage().ref(post.user+'/'+post.media));
+      const storageRefs = userPosts.map((post) => firebase.storage().ref(post.user + '/' + post.media));
       try {
         const urls = await Promise.all(storageRefs.map((storageRef) => storageRef.getDownloadURL()));
         setImageUrls(urls);
@@ -48,7 +51,7 @@ const page = ({ params }) => {
       }
     }
     fetchImageUrls();
-  // }
+    }
   }, [userPosts]);
 
   if (user?._id) {
@@ -61,7 +64,7 @@ const page = ({ params }) => {
           </div>
           <div className="w-full">
             {
-              userPosts.map((post,index) => (
+              userPosts.map((post, index) => (
                 <Post post={post} imageUrl={imageUrls[index]} />
               ))
             }
@@ -71,9 +74,12 @@ const page = ({ params }) => {
           </div>
         </div>
         <AddPost refreshPosts={refreshPosts} caption={caption} setCaption={setCaption} setShow={setShowAddPostModal} show={showAddPostModal} />
-        </>
+      </>
       // </PrivateLayout>
     )
+  }
+  else {
+    return <></>
   }
 }
 export default page

@@ -46,9 +46,7 @@ const page = () => {
   if(auth?.accessToken){
     router.push('/'+auth?.username)
   }
-  }, [])
-  if(typeof window !== undefined){
-  if(!auth?.accessToken && !refreshToken.value && refreshToken.set){
+  }, [auth])
     return (
     <>
     <ToastContainer enableMultiContainer={false} />
@@ -90,9 +88,6 @@ const page = () => {
       </div>
     </>
   )}
-  else{
-    return <></>
-  }
-}}
+
 
 export default page
