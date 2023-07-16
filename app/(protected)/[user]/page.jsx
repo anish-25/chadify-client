@@ -9,6 +9,7 @@ import useApi from '@/app/hooks/useApi'
 import firebase from "@/app/firebase"
 import useAuth from '@/app/hooks/useAuth'
 import useAxiosPrivate from '@/app/hooks/useAxiosPrivate'
+import PageTransition from '@/components/PageTransition'
 const page = ({ params }) => {
   const [caption, setCaption] = useState("")
   const { auth } = useAuth()

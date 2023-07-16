@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import React from 'react'
 
 const Button = ({
@@ -11,7 +12,7 @@ const Button = ({
 }) => {
   return (
     <>
-      <button disabled={disabled} style={style} onClick={onClick} className={`bg-primary h-[35px] text-white w-full rounded-lg ${!disabled ? 'hover:opacity-70' : ' opacity-70'} transition-all ${className}`}>
+      <motion.button whileTap={{scale:0.9}} disabled={disabled} style={style} onClick={onClick} className={`bg-primary h-[35px] text-white w-full rounded-lg ${!disabled ? 'hover:opacity-70' : ' opacity-70'} transition-all ${className}`}>
         {!loading ?
           text :
           <div className="w-full flex justify-center items-center" role="status">
@@ -23,7 +24,7 @@ const Button = ({
           </div>
         }
 
-      </button>
+      </motion.button>
     </>
   )
 }

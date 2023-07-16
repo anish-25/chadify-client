@@ -5,6 +5,8 @@ import { useEffect, useMemo } from 'react';
 import useRefreshToken from '../hooks/useRefreshToken';
 import { ApiProvider } from '@/context/ApiContext';
 import { useRouter } from 'next/navigation';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ProtectedLayout({
   children,
@@ -28,6 +30,7 @@ export default function ProtectedLayout({
       return (
         <ApiProvider>
           <PrivateLayout>
+            <ToastContainer position='top-center'/>
             {children}
           </PrivateLayout>
         </ApiProvider>)

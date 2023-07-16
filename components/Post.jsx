@@ -18,7 +18,7 @@ const Post = ({ post,imageUrl }) => {
       <div className="flex justify-between items-center w-full px-5">
         <div className="flex justify-around items-center space-x-3">
           <div className="w-[34px] h-[33px] rounded-full border border-secondary">
-            <Image src={IMAGE_HOST+'/avatars/'+post.user+'.png'} alt='user-profile-picture' className='rounded-full  h-[33px]' width={33} height={32} />
+            <Image src={post.avatar} alt='user-profile-picture' className='rounded-full  h-[33px]' width={33} height={32} />
           </div>
           <div className="flex flex-col">
             <p className='text-secondary text-base font-medium cursor-pointer'>{post.username}</p>
@@ -47,7 +47,7 @@ const Post = ({ post,imageUrl }) => {
         <Image className='w-full max-h-[450px]' style={{ objectFit: 'contain' }} width={300} height={180} src={post.media} alt='post-image' />
       </div>
       <div className="px-3 mt-2 cursor-pointer min-h-[30px] hover:text-secondary" onClick={() => setShowMore(prev => !prev)}>
-        {caption.length < 180 ? caption :
+        {caption?.length < 180 ? caption :
          showMore ?
          <>
           {caption + ' '}
@@ -56,7 +56,7 @@ const Post = ({ post,imageUrl }) => {
          :
           <>
             {
-              caption.substring(0, 180) + '.... '
+              caption?.substring(0, 180) + '.... '
             }
             <span className='font-semibold'>more</span>
           </>

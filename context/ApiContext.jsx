@@ -31,6 +31,10 @@ export const ApiProvider = ({ children }) => {
         return axios.get(endpoints.userPosts+user)
     }
 
+    const updateUser = (id,data) => {
+        return axios.put(endpoints.userDetails+id,data)
+    }
+
     return (
         <ApiContext.Provider
             value={{
@@ -39,7 +43,8 @@ export const ApiProvider = ({ children }) => {
                 uploadFile,
                 searchUser,
                 getTimeline,
-                getUserPosts
+                getUserPosts,
+                updateUser
             }}
             >
             {children}

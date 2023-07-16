@@ -50,7 +50,7 @@ const Sidebar = () => {
             <div className="flex flex-col w-full justify-center mb-32 items-center h-[90%] pl-8 space-y-[40px] text-secondary font-semibold">
                 {
                     links.map(link => (
-                        <div onClick={() => { if (link.name === "Profile") { setHideChatWindow(true) } else { setHideChatWindow(false) }; router.push(link.path) }} className="flex w-full justify-start items-center space-x-3 hover:font-bold cursor-pointer transition-all duration-150">
+                        <div onClick={() => { if (link.name === "Profile") { setHideChatWindow(true) } else { setHideChatWindow(false) }; router.push(link.path) }} className="flex w-full justify-start items-center space-x-3 hover:opacity-100 opacity-80 cursor-pointer transition-all duration-200">
                             <Image src={link.icon} alt='nav-icon' width={22} height={20} />
                             <div className="">{link.name}</div>
                         </div>

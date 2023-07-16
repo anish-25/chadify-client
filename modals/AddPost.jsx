@@ -8,12 +8,14 @@ import CloseIcon from 'remixicon-react/CloseLineIcon'
 import { FrontFacingChad } from '@/assets/icons'
 import Search from '@/components/Search'
 import useApi from '@/app/hooks/useApi'
+import { motion } from 'framer-motion'
 
 const AddPost = ({ show, setShow,caption,setCaption,refreshPosts }) => {
     const imageRef = useRef(null)
     const [image,setImage] = useState(null)
     const {createPost,uploadFile} = useApi()
-    
+    const AnimatedModal = motion(Modal);
+
     const handleUpload = (e) => {
         setImage(e.target.files[0])
     }

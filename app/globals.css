@@ -33,3 +33,9 @@ body {
     border: 1px solid transparent;
   }
   
+  .ant-upload-list.ant-upload-list-picture-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
+  }
