@@ -35,6 +35,10 @@ export const ApiProvider = ({ children }) => {
         return axios.put(endpoints.userDetails+id,data)
     }
 
+    const followUser = (requestedBy,userToFollow) => {
+        return axios.post(endpoints.follow,{requestedBy,userToFollow})
+    }
+
     return (
         <ApiContext.Provider
             value={{
@@ -44,7 +48,8 @@ export const ApiProvider = ({ children }) => {
                 searchUser,
                 getTimeline,
                 getUserPosts,
-                updateUser
+                updateUser,
+                followUser
             }}
             >
             {children}

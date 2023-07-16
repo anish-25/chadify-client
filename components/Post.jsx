@@ -18,7 +18,7 @@ const Post = ({ post,imageUrl }) => {
       <div className="flex justify-between items-center w-full px-5">
         <div className="flex justify-around items-center space-x-3">
           <div className="w-[34px] h-[33px] rounded-full border border-secondary">
-            <Image src={post.avatar} alt='user-profile-picture' className='rounded-full  h-[33px]' width={33} height={32} />
+            <Image src={post.avatar || FrontFacingChad} alt='user-profile-picture' className='rounded-full  h-[33px]' width={33} height={32} />
           </div>
           <div className="flex flex-col">
             <p className='text-secondary text-base font-medium cursor-pointer'>{post.username}</p>

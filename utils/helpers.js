@@ -13,14 +13,14 @@ export const handleApiError = (err) => {
 
 export const handleLogout = () => {
     const router = useRouter()
-    const {setAuth} = useAuth()
+    const { setAuth } = useAuth()
     localStorage.clear()
     sessionStorage.clear()
     setAuth({})
     router.push('/accounts/login')
 }
 
-export const getFireBaseFile = async(path) => {
+export const getFireBaseFile = async (path) => {
     try {
         const storageRef = firebase.storage().ref(path);
         const url = await storageRef.getDownloadURL();
@@ -28,4 +28,11 @@ export const getFireBaseFile = async(path) => {
     } catch (error) {
         console.error(error);
     }
+}
+
+export const animations = {
+    onTheRight: { x: '100%' },
+    inTheCenter: { x: 0 },
+    onTheLeft: { x: '-100%' },
+    transition: { duration: 0.6, ease: 'easeInOut' }
 }

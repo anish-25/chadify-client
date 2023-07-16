@@ -11,4 +11,5 @@ export const endpoints = {
     searchUser : '/search/user',
     timeLinePosts : '/timeline/',
     userPosts : '/user-posts/',
+    follow : '/follow-unfollow'
 }

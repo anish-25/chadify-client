@@ -6,6 +6,7 @@ import { useState } from 'react';
 import useApi from '@/app/hooks/useApi';
 import { toast } from 'react-toastify';
 import { handleApiError } from '@/utils/helpers';
+import { FrontFacingChad } from '@/assets/icons';
 const getBase64 = (file) =>
     new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -20,14 +21,14 @@ const ChangeProfilePic = ({ open, setOpen, user,setUserDetails }) => {
     const [previewOpen, setPreviewOpen] = useState(false);
     const [previewImage, setPreviewImage] = useState('');
     const [previewTitle, setPreviewTitle] = useState('');
-    const [fileList, setFileList] = useState([
+    const [fileList, setFileList] = useState(user?.avatar? [
         {
             uid: '-1',
             name: `${user?.username}.png`,
             status: 'done',
             url: user?.avatar,
         },
-    ]);
+    ]:[]);
     const handleCancel = () => setPreviewOpen(false);
     const handlePreview = async (file) => {
         if (!file.url && !file.preview) {

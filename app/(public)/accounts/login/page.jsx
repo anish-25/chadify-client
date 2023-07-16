@@ -1,15 +1,17 @@
 'use client';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react'
+import React, { forwardRef, useEffect, useState } from 'react'
 import HeroImg from '@/assets/HeroImage.png'
 import Logo from '@/assets/Logo.png'
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import useAuth from '@/app/hooks/useAuth';
-import { handleApiError } from '@/utils/helpers';
+import { animations, handleApiError } from '@/utils/helpers';
 import { useRouter } from 'next/navigation';
 import { ToastContainer } from 'react-toastify';
-const page = () => {
+import { motion } from 'framer-motion';
+import PageTransition from '@/components/PageTransition';
+const page = (props,ref) => {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [refreshToken, setRefreshToken] = useState({ set: false, value: undefined })
@@ -49,6 +51,7 @@ const page = () => {
   if (!auth?.id) {
     return (
       <>
+        <PageTransition ref={ref}>
         <ToastContainer enableMultiContainer={false} />
         <div className="min-h-screen flex justify-center items-center">
           <div className="hero-img absolute -left-10 -bottom-[60px] scale-75 hidden lg:block">
@@ -64,7 +67,11 @@ const page = () => {
               </h4>
             </div>
           </div>
-          <div className="sign-in-form flex justify-center w-[90%] md:w-[60%] lg:w-[50%]">
+          <motion.div
+            initial={animations.onTheRight}
+            animate={animations.inTheCenter}
+            exit={animations.onTheLeft}
+            transition={animations.transition} className="sign-in-form flex justify-center w-[90%] md:w-[60%] lg:w-[50%]">
             <div className='border-secondary border-opacity-30 flex flex-col justify-start py-4 pb-12 px-2 items-center rounded-md min-w-[60%] max-w-[480px]' style={{ borderWidth: '0.2px' }}>
               <Image className='scale-90 ' src={Logo} alt='logo' />
               <form onSubmit={handleLogin} className='mt-[80px] w-full sm:px-[47px] space-y-10'>
@@ -84,12 +91,13 @@ const page = () => {
                 </span>
               </p>
             </div>
-          </div>
+          </motion.div>
         </div>
+        </PageTransition>
       </>
     )
   }
   else return <></>
 }
 
-export default page
+export default forwardRef(page)
