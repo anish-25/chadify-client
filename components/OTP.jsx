@@ -47,6 +47,7 @@ const OtpInput = ({ otpLength,val,setVal }) => {
         <input
           id={"input-" + ind}
           key={"input-" + ind}
+          type="tel"
           tabIndex={ind}
           value={val[ind] || ""}
           min={0}
