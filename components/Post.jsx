@@ -8,7 +8,6 @@ import Sivaji from '@/assets/Sivaji.png'
 import Reactions from './Reactions'
 import { Dropdown } from 'flowbite-react'
 import { IMAGE_HOST } from '@/app/config'
-import { getFireBaseFile } from '@/utils/helpers'
 
 const Post = ({ post,imageUrl }) => {
   const [showMore, setShowMore] = useState(false)

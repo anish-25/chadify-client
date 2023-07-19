@@ -6,7 +6,6 @@ import { redirect, useRouter } from 'next/navigation'
 import Logout from 'remixicon-react/LogoutBoxLineIcon'
 import Link from 'next/link'
 import Button from './Button'
-import { getFireBaseFile, handleLogout } from '@/utils/helpers'
 import useAuth from '@/app/hooks/useAuth'
 import { useLogout } from '@/app/hooks/useLogout'
 

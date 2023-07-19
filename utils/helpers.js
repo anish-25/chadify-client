@@ -1,4 +1,3 @@
-import firebase from "@/app/firebase"
 import useAuth from "@/app/hooks/useAuth"
 import { useRouter } from "next/navigation"
 import { toast } from "react-toastify"
@@ -20,15 +19,6 @@ export const handleLogout = () => {
     router.push('/accounts/login')
 }
 
-export const getFireBaseFile = async (path) => {
-    try {
-        const storageRef = firebase.storage().ref(path);
-        const url = await storageRef.getDownloadURL();
-        return url;
-    } catch (error) {
-        console.error(error);
-    }
-}
 
 export const animations = {
     onTheRight: { x: '100%' },

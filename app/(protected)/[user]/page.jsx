@@ -6,7 +6,6 @@ import SearchBar from '@/components/SearchBar'
 import AddPostButton from '@/components/AddPostButton'
 import AddPost from '@/modals/AddPost'
 import useApi from '@/app/hooks/useApi'
-import firebase from "@/app/firebase"
 import useAuth from '@/app/hooks/useAuth'
 import useAxiosPrivate from '@/app/hooks/useAxiosPrivate'
 import PageTransition from '@/components/PageTransition'
