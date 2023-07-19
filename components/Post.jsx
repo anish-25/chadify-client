@@ -13,7 +13,7 @@ const Post = ({ post,imageUrl }) => {
   const [showMore, setShowMore] = useState(false)
   const caption = post.caption
   return (
-    <div className='flex flex-col !w-full mb-[50px] px-[100px]'>
+    <div className='flex flex-col !w-full mb-[50px] px-[20px] md:px-[100px]'>
       <div className="flex justify-between items-center w-full px-5">
         <div className="flex justify-around items-center space-x-3">
           <div className="w-[34px] h-[33px] rounded-full border border-secondary">

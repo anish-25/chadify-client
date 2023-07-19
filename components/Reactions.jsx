@@ -60,7 +60,7 @@ const Reactions = ({reaction}) => {
 
   return (
     <>
-      <div className="flex justify-start items-center space-x-6 scale-90">
+      <div className="flex justify-start items-center space-x-6 scale-[0.6] md:scale-90">
     {
      sortReactionButtonsByCountAndUserClick(reactionButtons).map(reaction => (
     <div className={`w-[38px] h-[39px] border border-black rounded-full transition-all duration-500 ease-in-out transform relative ${userClickedOn == reaction.key?'bg-green-400': 'bg-gray-200'} bg-gray-200 hover:bg-green-400 transition-all duration-150 cursor-pointer`} onClick={() => {
