@@ -40,10 +40,10 @@ const page = ({ params }) => {
   if (auth?.id) {
     return (
       <>
-        <div className="flex relative flex-col h-screen justify-start w-full px-4">
-          <div className="w-full h-[15%] sticky z-30 top-0 bg-[#FCFBFF]">
+        <div className="flex relative flex-col h-screen justify-start w-full px-4 pt-8">
+          {/* <div className="w-full h-[15%] sticky z-30 top-0 bg-[#FCFBFF]">
             <SearchBar />
-          </div>
+          </div> */}
           <div className="w-full">
             {
               userPosts.map((post, index) => (

@@ -60,15 +60,15 @@ const Reactions = ({reaction}) => {
 
   return (
     <>
-      <div className="flex justify-start items-center space-x-6 scale-[0.6] md:scale-90">
+      <div className="flex justify-start items-center space-x-6">
     {
      sortReactionButtonsByCountAndUserClick(reactionButtons).map(reaction => (
-    <div className={`w-[38px] h-[39px] border border-black rounded-full transition-all duration-500 ease-in-out transform relative ${userClickedOn == reaction.key?'bg-green-400': 'bg-gray-200'} bg-gray-200 hover:bg-green-400 transition-all duration-150 cursor-pointer`} onClick={() => {
+    <div className={`w-[25px] h-[26px] md:w-[38px] md:h-[39px] border border-black rounded-full transition-all duration-500 ease-in-out transform relative ${userClickedOn == reaction.key?'bg-green-400': 'bg-gray-200'} bg-gray-200 hover:bg-green-400 transition-all duration-150 cursor-pointer`} onClick={() => {
       setUserClickedOn(reaction.key); handleClick(reaction.key)}} onDragEnd={() => {setUserClickedOn(reaction.key); handleClick(reaction.key)}}>
-      <div className={`absolute -top-3 -right-5 rounded-2xl ${userClickedOn == reaction.key?'bg-green-400':'bg-primary'}  h-5 text-white text-sm px-3 flex justify-center items-center text-center`}>
+      <div className={`absolute -top-3 -right-5 rounded-2xl ${userClickedOn == reaction.key?'bg-green-400':'bg-primary'} h-4 md:h-5 text-white text-xs md:text-sm px-3 flex justify-center items-center text-center`}>
         {counts[reaction.key].length}
       </div>
-      <Image src={reaction.image} alt={reaction.alt} className='w-[37px] h-[38px] rounded-full'/>
+      <Image src={reaction.image} alt={reaction.alt} className='w-[24px] h-[25px] md:w-[37px]  md:h-[38px] rounded-full'/>
     </div>
       ))
 }
