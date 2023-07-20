@@ -54,9 +54,9 @@ const AddPost = ({ show, setShow,caption,setCaption,refreshPosts }) => {
                 Create a new Post
             </Modal.Header>
             <Modal.Body style={{ position: 'relative' }}>
-                <div className="space-y-6" style={{ maxHeight: '60vh', overflowY: 'auto' }}>
-                    <div className="space-y-6" style={{ minHeight: '60vh', display: 'flex', alignItems: 'end' }}>
-                    <div className='border h-full flex-col space-y-4' style={{minHeight: '60vh',width:'60%',display:'flex',justifyContent:'center',alignItems:'center'}}>
+                <div className="space-y-6 relative" style={{ maxHeight: '60vh', overflowY: 'auto' }}>
+                    <div className="space-y-6 flex-col md:flex-row" style={{ minHeight: '60vh', display: 'flex', alignItems: 'center' }}>
+                    <div className='border flex-col space-y-4 md:w-[60%] w-full' style={{display:'flex',justifyContent:'center',alignItems:'center',minHeight:"40vh"}}>
                         {
                             !image ?
                             <>
@@ -71,13 +71,13 @@ const AddPost = ({ show, setShow,caption,setCaption,refreshPosts }) => {
                             </div>
                         }
                     </div>
-                    <div style={{width:'40%',display:'flex',flexDirection:"column",padding:'20px',justifyContent:'start',minHeight: '60vh'}}>
+                    <div className='md:w-[40%] w-full md:!min-h-[60vh] min-h-[40vh]' style={{display:'flex',flexDirection:"column",padding:'20px',justifyContent:'start'}}>
                      <div style={{display:'flex',justifyContent:'start',alignItems:'center'}}>
                      <Image style={{marginRight:'8px'}} src={FrontFacingChad} alt='profile-picture' width={24} height={24}/>
                      <span style={{fontWeight:'400'}} className='text-secondary'>anish25</span>
                      </div>
                     <Search caption={caption} setCaption={setCaption}/>
-                    <div className="flex justify-center items-center w-full mt-12">
+                    <div className="flex md:relative justify-center items-center w-full mt-12 sticky bottom-0 pb-10">
                     <Button disabled={!image?.name} text={'Share'} onClick={handleCreatePost} style={{width:'40%',height:'30px'}}/>
                     </div>
                     </div>
