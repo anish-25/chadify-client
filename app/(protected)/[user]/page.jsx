@@ -51,7 +51,7 @@ const page = ({ params }) => {
               ))
             }
           </div>
-          <div className="sticky flex justify-end items-center pb-[30px] bottom-0 right-0">
+          <div className="sticky flex justify-end items-center pb-[70px] md:pb-[30px] bottom-0 right-0">
             <AddPostButton onClick={() => setShowAddPostModal(true)} />
           </div>
         </div>

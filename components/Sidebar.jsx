@@ -9,7 +9,7 @@ import Button from './Button'
 import useAuth from '@/app/hooks/useAuth'
 import { useLogout } from '@/app/hooks/useLogout'
 
-const Sidebar = () => {
+const Sidebar = ({view}) => {
     const {auth} = useAuth()
     const links = [
         {
@@ -41,31 +41,43 @@ const Sidebar = () => {
     const router = useRouter()
     const { hideChatWindow, setHideChatWindow } = useAuth()
     const logout = useLogout()
-    return (
-        <div className='flex flex-col w-full h-screen p-2 justify-start items-start'>
-            <div className="flex justify-start items-start h-[10%]">
-                <Image src={Logo} className='scale-75 cursor-pointer' onClick={() => router.push('/'+auth?.username)} />
+    if(view==="desktop"){
+        return (
+            <div className='flex flex-col w-full h-screen p-2 justify-start items-start'>
+                <div className="flex justify-start items-start h-[10%]">
+                    <Image src={Logo} className='scale-75 cursor-pointer' onClick={() => router.push('/'+auth?.username)} />
+                </div>
+                <div className="flex flex-col w-full justify-center mb-32 items-center h-[90%] pl-8 space-y-[40px] text-secondary font-semibold">
+                    {
+                        links.map(link => (
+                            <div onClick={() => { if (link.name === "Profile") { setHideChatWindow(true) } else { setHideChatWindow(false) }; router.push(link.path) }} className="flex w-full justify-start items-center space-x-3 hover:opacity-100 opacity-80 cursor-pointer transition-all duration-200">
+                                <Image src={link.icon} alt='nav-icon' width={22} height={20} />
+                                <div className="">{link.name}</div>
+                            </div>
+                        ))
+                    }
+                </div>
+                <div className="flex justify-center w-full items-end mb-14">
+                    <button onClick={() => {
+                        logout()
+                    }} className='flex justify-center items-end w-[40%] space-x-3'>
+                        <Logout color='red' />
+                        <span className='text-red-500 font-medium'>Logout</span>
+                    </button>
+                </div>
             </div>
-            <div className="flex flex-col w-full justify-center mb-32 items-center h-[90%] pl-8 space-y-[40px] text-secondary font-semibold">
-                {
-                    links.map(link => (
-                        <div onClick={() => { if (link.name === "Profile") { setHideChatWindow(true) } else { setHideChatWindow(false) }; router.push(link.path) }} className="flex w-full justify-start items-center space-x-3 hover:opacity-100 opacity-80 cursor-pointer transition-all duration-200">
-                            <Image src={link.icon} alt='nav-icon' width={22} height={20} />
-                            <div className="">{link.name}</div>
-                        </div>
-                    ))
-                }
-            </div>
-            <div className="flex justify-center w-full items-end mb-14">
-                <button onClick={() => {
-                    logout()
-                }} className='flex justify-center items-end w-[40%] space-x-3'>
-                    <Logout color='red' />
-                    <span className='text-red-500 font-medium'>Logout</span>
-                </button>
-            </div>
+        )
+    }
+    else if(view==="mobile"){
+        return (
+        <div className="w-full flex justify-around items-center bg-gray-200 min-h-[60px]">
+            {links.map(link => (
+            <Image alt='nav-icon' className='cursor-pointer' src={link.icon} height={20} width={20} onClick={() => router.push(link.path)}/>
+            ))}
         </div>
-    )
+        )
+    }
+    else return <></>
 }
 
 export default Sidebar

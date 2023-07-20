@@ -7,26 +7,29 @@ import useRefreshToken from '@/app/hooks/useRefreshToken'
 import { usePathname, useRouter } from 'next/navigation'
 
 
-const PrivateLayout = ({children}) => {
-  const {hideChatWindow, setHideChatWindow,auth,refreshToken, setRefreshToken} = useAuth()
-   return (
-     <>
-     <div className="flex min-h-screen items-center justify-start">
-       <div className="hidden w-[15%] md:flex justify-center items-center shadow-sm">
-         <Sidebar/>
-       </div>
-       <div className={`${hideChatWindow? 'md:w-[85%]': 'md:w-[65%]'} w-full flex justify-center items-center border-x min-h-screen max-h-screen overflow-y-auto border-y-secondary`}>
-       {children}
-       </div>
-       {
-         hideChatWindow ? <></> :
-       <div className="w-[20%] hidden md:flex justify-center items-center">
-         <ChatWindow/>
-       </div>
-       }
-     </div>
-     </>
-   )
+const PrivateLayout = ({ children }) => {
+  const { hideChatWindow, setHideChatWindow, auth, refreshToken, setRefreshToken } = useAuth()
+  return (
+    <>
+      <div className="flex flex-col md:flex-row min-h-screen items-center justify-start">
+        <div className="hidden w-[15%] md:flex justify-center items-center shadow-sm">
+          <Sidebar view={"desktop"} />
+        </div>
+        <div className={`${hideChatWindow ? 'md:w-[85%]' : 'md:w-[65%]'} w-full flex justify-center items-center border-x min-h-screen max-h-screen overflow-y-auto border-y-secondary`}>
+          {children}
+        </div>
+        <div className="flex w-full md:hidden max-h-[80px] z-30 justify-center items-center sticky bottom-0">
+          <Sidebar view={"mobile"} />
+        </div>
+        {
+          hideChatWindow ? <></> :
+            <div className="w-[20%] hidden md:flex justify-center items-center">
+              <ChatWindow />
+            </div>
+        }
+      </div>
+    </>
+  )
 }
 
 export default PrivateLayout
