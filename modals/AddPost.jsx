@@ -42,13 +42,16 @@ const AddPost = ({ show, setShow,caption,setCaption,refreshPosts }) => {
             }
         }
     }
+    const handleClose = () => {
+        setShow(prev => ({...prev,open:false}))
+    }
     return (
         <Modal
             dismissible={true}
             show={show}
             size={'5xl'}
             position={'center'}
-            onClose={() => setShow(false)}
+            onClose={handleClose}
         >
             <Modal.Header>
                 Create a new Post

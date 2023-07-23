@@ -24,7 +24,7 @@ const ProfileHead = ({ user, posts, setUserDetails }) => {
   }
 
   return (
-    <div className="flex justify-between h-[20%] w-[80%] items-start pt-6 space-x-4">
+    <div className="flex justify-between h-[20%] w-full md:w-[80%] items-start pt-6 space-x-4">
       <div className="flex flex-col justify-center items-center">
         <div className="relative group cursor-pointer" onClick={() => { if (auth?.id === user?._id) setEditProfilePic(true) }} >
           <Image className='rounded-full border' width={150} height={150} src={user?.avatar || FrontFacingChad}></Image>
@@ -42,21 +42,21 @@ const ProfileHead = ({ user, posts, setUserDetails }) => {
         </div>
       </div>
       <div className="flex flex-col space-y-8 justify-center w-full items-center">
-        <div className="flex justify-center w-full items-center">
+        <div className="flex justify-around md:justify-center w-full items-center">
           <div className="flex min-w-[20%] flex-col space-y-2 justify-center items-center">
-            <h3 className='text-3xl font-semibold'>{user?.followers?.length}</h3>
-            <p className='text-sm text-secondary opacity-60 font-semibold'>FOLLOWERS</p>
+            <h3 className='md:text-3xl text-2xl font-semibold'>{user?.followers?.length}</h3>
+            <p className='md:text-sm text-xs text-secondary opacity-60 font-semibold'>FOLLOWERS</p>
           </div>
           <div className="flex min-w-[20%] flex-col space-y-2 justify-center items-center">
-            <h3 className='text-3xl font-semibold'>{user?.following?.length}</h3>
-            <p className='text-sm text-secondary opacity-60 font-semibold'>FOLLOWING</p>
+            <h3 className='md:text-3xl text-2xl font-semibold'>{user?.following?.length}</h3>
+            <p className='md:text-sm text-xs text-secondary opacity-60 font-semibold'>FOLLOWING</p>
           </div>
           <div className="flex min-w-[20%] flex-col space-y-2 justify-center items-center">
-            <h3 className='text-3xl font-semibold'>{posts?.length}</h3>
-            <p className='text-sm text-secondary opacity-60 font-semibold'>POSTS</p>
+            <h3 className='md:text-3xl text-2xl font-semibold'>{posts?.length}</h3>
+            <p className='md:text-sm text-xs text-secondary opacity-60 font-semibold'>POSTS</p>
           </div>
         </div>
-        <div className=" text-sm max-w-[75%]">
+        <div className="md:text-sm text-xs md:max-w-[75%]">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Id, ad quos. Esse hic dicta dolorem praesentium iusto molestiae quis beatae impedit, accusamus, suscipit reiciendis quo nobis provident voluptatum maxime architecto.
         </div>
         {

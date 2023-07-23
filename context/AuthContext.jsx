@@ -8,6 +8,9 @@ export const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState({})
     const [refreshToken, setRefreshToken] = useState(undefined)
     const [hideChatWindow, setHideChatWindow] = useState({})
+    const [caption, setCaption] = useState("")
+    const [showAddPostModal, setShowAddPostModal] = useState(false)
+
     const login = (cred) => {
         return axios.post(endpoints.login, { email: cred?.username, password: cred.password })
     }
@@ -34,6 +37,8 @@ export const AuthProvider = ({ children }) => {
             value={{
                 auth, setAuth,
                 hideChatWindow, setHideChatWindow,
+                showAddPostModal, setShowAddPostModal,
+                caption, setCaption,
                 refreshToken, setRefreshToken,
                 login,
                 register,
