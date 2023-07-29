@@ -54,6 +54,19 @@ export const ApiProvider = ({ children }) => {
         getUserPosts(userId).then(res => setUserPosts(res.data))
     }
 
+    const reactToAPost = (postId, reaction) => {
+        return axios.put(endpoints.reactToAPost + postId, { reaction }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Z-Key',
+                'Access-Control-Allow-Methods': 'GET, HEAD, POST, PUT, DELETE, OPTIONS'
+            }
+        })
+    }
+
+
+
     return (
         <ApiContext.Provider
             value={{
@@ -69,6 +82,7 @@ export const ApiProvider = ({ children }) => {
                 userTimeline, setUserTimeline,
                 refreshUserPosts,
                 userPosts, setUserPosts,
+                reactToAPost
             }}
         >
             {children}

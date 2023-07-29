@@ -63,7 +63,7 @@ const Post = ({ post,imageUrl }) => {
       </div>
       <div className="flex justify-between items-center w-full mt-6 px-5">
         <div className="">
-          <Reactions reaction={post.reactions} />
+          <Reactions post={post} reaction={post.reactions} />
         </div>
         <div className="flex space-x-3 items-center justify-around">
           <CommentIcon className='cursor-pointer hover:text-secondary transition-all duration-150' size={30} />

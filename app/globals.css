@@ -3,39 +3,100 @@
 @tailwind utilities;
 
 body {
-    background: #FCFBFF;
-    max-height: 100vh;
-    overflow: hidden;
+  background: #fcfbff;
+  max-height: 100vh;
+  overflow: hidden;
 }
 
 /* For WebKit based browsers (e.g. Chrome, Safari) */
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-    background-color: #F5F5F5;
-    border-radius: 8px;
+  width: 8px;
+  height: 8px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}
+
+/* For the thumb (the draggable part of the scrollbar) */
+::-webkit-scrollbar-thumb {
+  background-color: #c4c4c4;
+  transition: all 0.2s ease-in-out;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #bcbcbc;
+}
+
+/* For the track (the non-draggable part of the scrollbar) */
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 8px;
+  border: 1px solid transparent;
+}
+
+.ant-upload-list.ant-upload-list-picture-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20vh;
+}
+
+.spin {
+  position: absolute;
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  border: 2px solid #34495e;
+  border-radius: 100%;
+  animation: spin 0.75s infinite linear;
+}
+
+.spin::before,
+.spin::after {
+  left: -2px;
+  top: -2px;
+  display: none;
+  position: absolute;
+  content: "";
+  width: inherit;
+  height: inherit;
+  border: inherit;
+  border-radius: inherit;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
   }
-  
-  /* For the thumb (the draggable part of the scrollbar) */
-  ::-webkit-scrollbar-thumb {
-    background-color: #C4C4C4;
-    transition: all .2s ease-in-out;
-    border-radius: 8px;
+  to {
+    transform: rotate(360deg);
   }
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: #bcbcbc;
+}
+
+.spinner,
+.spinner::before,
+.spinner::after {
+  display: inline-block;
+  border-color: transparent;
+  border-top-color: #8B09C8;
+  animation-duration: 1.2s;
+}
+
+.spinner::before {
+  transform: rotate(120deg);
+}
+
+.spinner::after {
+  transform: rotate(240deg);
+}
+
+@media (min-width: 768px) {
+  .spin {
+    width: 37px;
+    height: 37px;
   }
-  
-  /* For the track (the non-draggable part of the scrollbar) */
-  ::-webkit-scrollbar-track {
-    background-color: transparent;
-    border-radius: 8px;
-    border: 1px solid transparent;
+  .image img {
+    position: absolute;
+    top: 19%;
+    left: 21%;
   }
-  
-  .ant-upload-list.ant-upload-list-picture-circle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 20vh;
-  }
+}

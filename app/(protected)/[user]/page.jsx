@@ -1,6 +1,6 @@
 'use client'
 import { useRouter, useSearchParams } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import Post from '@/components/Post'
 import SearchBar from '@/components/SearchBar'
 import AddPostButton from '@/components/AddPostButton'
@@ -28,7 +28,6 @@ const page = ({ params }) => {
       router.push('/accounts/login')
     }
   }, [])
-
   if (auth?.id) {
     return (
       <>
