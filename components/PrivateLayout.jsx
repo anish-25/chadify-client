@@ -12,7 +12,7 @@ const PrivateLayout = ({ children }) => {
   const { hideChatWindow, setHideChatWindow, auth, refreshToken, setRefreshToken } = useAuth()
   return (
     <>
-      <div className="flex flex-col md:flex-row min-h-screen items-center justify-start mt-[10px]">
+      <div className="flex flex-col md:flex-row min-h-screen items-center justify-start">
         <div className="hidden w-[30%] lg:w-[20%] xl:w-[15%] md:flex justify-center items-center shadow-sm border-r">
           <Sidebar view={"desktop"} />
         </div>
