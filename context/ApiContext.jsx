@@ -9,7 +9,7 @@ export const ApiProvider = ({ children }) => {
     const axios = useAxiosPrivate()
     const { auth } = useAuth()
 
-    const [userTimeline, setUserTimeline] = useState([])
+    const [userTimeline, setUserTimeline] = useState(undefined)
     const [userPosts, setUserPosts] = useState([])
 
     const getCompleteUserDetails = (id = "") => {
